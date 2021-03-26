@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout.html}"
+>
+<div id="wrapper">
+    <div class="container-fluid" layout:fragment="content">
+        <h6 class="title-header">Tạo loại nhà cung cấp</h6>
+        <form name="my-form" th:action="@{/category-suppliers/create}" method="post" th:object="${cate}">
+            <div class="form-group row">
+                <label  class="col-md-4 col-form-label text-md-right">Tên loại NCC</label>
+                <div class="col-md-4">
+                    <input type="text" id="full_name" min="1" maxlength="255" th:field="*{name}"  required autofocus="autofocus" class="form-control" name="full-name">
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                          class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-6 offset-md-4">
+                <button type="submit" class="btn btn-primary">
+                    Tạo
+                </button>
+            </div>
+        </form>
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+</html>

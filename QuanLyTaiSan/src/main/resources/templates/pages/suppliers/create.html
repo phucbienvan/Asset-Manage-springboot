@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout.html}"
+>
+<div id="wrapper">
+    <div class="container-fluid" layout:fragment="content">
+        <h6 class="title-header">Thêm mới nhà cung cấp</h6>
+        <form name="my-form" th:action="@{/suppliers/create}" method="post" th:object="${listCate}">
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Tên cung cấp</label>
+                <div class="col-md-4">
+                    <input class="form-control form-control-user"  required autofocus="autofocus"
+                           th:field="*{suppliers.name}" min="1" maxlength="255"
+                           placeholder="">
+                    <span th:if="${#fields.hasErrors('suppliers.name')}" th:errors="*{suppliers.name}"
+                          class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Địa chỉ</label>
+                <div class="col-md-4">
+                    <input class="form-control form-control-user"  required autofocus="autofocus"
+                           th:field="*{suppliers.address}" min="1" maxlength="255"
+                           placeholder="">
+                    <span th:if="${#fields.hasErrors('suppliers.address')}" th:errors="*{suppliers.address}"
+                          class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Số điện thoại</label>
+                <div class="col-md-4">
+                    <input class="form-control form-control-user"  required autofocus="autofocus"
+                           th:field="*{suppliers.phoneNumber}" min="10" maxlength="11"
+                           placeholder="">
+                    <span th:if="${#fields.hasErrors('suppliers.phoneNumber')}" th:errors="*{suppliers.phoneNumber}"
+                          class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Tên loại nhà cung cấp</label>
+                <div class="col-md-4">
+                    <select name="supCateId" class="form-control">
+                        <option th:each="li : ${listCate.list}"
+                                th:value="${li.id}"
+                                th:text="${li.name}"/>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6 offset-md-4">
+                <button type="submit" class="btn btn-primary">
+                    Tạo nhà cung cấp
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+</html>

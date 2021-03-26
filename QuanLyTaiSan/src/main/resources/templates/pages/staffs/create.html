@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout.html}"
+>
+<div id="wrapper">
+    <div class="container-fluid" layout:fragment="content">
+        <h2 class="title-header">Thêm mới nhân viên</h2>
+        <form  name="my-form" enctype="multipart/form-data" th:action="@{/staffs/create}" method="post" th:object="${staffDepartments}">
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Ảnh đại diện</label>
+                <div class="col-md-4">
+                    <input name="file" type="file"  required autofocus="autofocus" >
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Tên nhân viên</label>
+                <div class="col-md-4">
+                    <input class="form-control form-control-user"
+                           th:field="*{staffs.name}"  required autofocus="autofocus"
+                           placeholder="">
+                    <span th:if="${#fields.hasErrors('staffs.name')}" th:errors="*{staffs.name}"
+                          class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Ngày sinh</label>
+                <div class="col-md-4">
+                    <input class="form-control form-control-user"  required autofocus="autofocus" name="dateOfBirth" type="date"
+                           placeholder="">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Địa chỉ</label>
+                <div class="col-md-4">
+                    <input class="form-control form-control-user"  required autofocus="autofocus"
+                           th:field="*{staffs.address}"
+                           placeholder="">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Số điện thoại</label>
+                <div class="col-md-4">
+                    <input class="form-control form-control-user"  required autofocus="autofocus"
+                           th:field="*{staffs.phoneNumber}"
+                           placeholder="">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Phòng ban</label>
+                <div class="col-md-4">
+                    <select class="form-control" name="departmentsId">
+                        <option th:each="li : ${staffDepartments.departmentsList}"
+                                th:value="${li.id}"
+                                th:text="${li.departmentName}"/>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6 offset-md-4">
+                <button type="submit" class="btn btn-primary">
+                    Thêm nhân viên
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+</html>

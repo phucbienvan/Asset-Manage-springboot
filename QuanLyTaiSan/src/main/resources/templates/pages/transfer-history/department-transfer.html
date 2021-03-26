@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout.html}"
+>
+<div id="wrapper">
+    <div class="container-fluid" layout:fragment="content">
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    ...
+                </div>
+            </div>
+        </div>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="row">
+                    <div class="col-md-11">
+                        <h6 class="m-0 font-weight-bold text-primary">Danh sách tài sản</h6>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="col-md-1">
+                            <a th:href="@{/transfer/department/create}">
+                                <img width="25px" th:src="@{'/images/add.png'}">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 row">
+<!--                            <div id="dataTable_filter" class="dataTables_filter col-sm-12">-->
+<!--                                <form th:action="@{/assets}" method="get">-->
+<!--                                    <div class="row">-->
+<!--                                        <div class="col-md-3">-->
+<!--                                            <input type="search" class="form-control" placeholder="Tìm kiếm"-->
+<!--                                                   id="txtSearch" name="keyWord"-->
+<!--                                                   aria-controls="dataTable">-->
+<!--                                        </div>-->
+<!--                                        <button type="submit" class="btn-primary">Tìm kiếm</button>-->
+<!--                                    </div>-->
+
+<!--                                </form>-->
+<!--                            </div>-->
+
+                        </div>
+                    </div>
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên tài sản</th>
+                            <th>Số lượng</th>
+                            <th>Tình trạng</th>
+                            <th>Trạng thái</th>
+                            <th>Giá</th>
+                            <th>Phòng ban</th>
+                            <th>Loại tài sản</th>
+                            <th>Nhóm tài sản</th>
+                            <th>Nhà sản xuất</th>
+                            <th>Điều chuyển</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="empl,iterStat : ${model}">
+                            <th scope="row" th:text="${iterStat.count}"></th>
+                            <td>
+                                <a th:href="@{/assets/detail/{id}(id=${empl.id})}" th:text="${empl.name}"></a>
+                            </td>
+                            <!--                            <td th:text="${empl.description}"></td>-->
+                            <td th:text="${empl.amount}"></td>
+                            <td th:text="${empl.conditionAsset}"></td>
+                            <td>
+                                <div th:switch="${empl.status}">
+                                    <p th:case="1" class="text-primary">Đang sử dụng</p>
+                                    <p th:case="2" class="text-success">Chưa sử dụng</p>
+                                    <p th:case="3" class="text-danger">Đã thu hồi</p>
+                                </div>
+                            </td>
+                            <td th:text="${empl.price}"></td>
+                            <!--                            <td th:text="${empl.position}"></td>-->
+                            <td th:text="${empl.departments.departmentName}"></td>
+                            <td th:text="${empl.categoryAssets.name}"></td>
+                            <td th:text="${empl.groupAssets.groupName}"></td>
+                            <td th:text="${empl.suppliers.name}"></td>
+                            <td><a th:href="@{/transfer/action/{id}(id=${empl.id})}"
+                                   class="mr-sm-2 text-primary">
+                                Điều chuyển<i class="fa fa-pencil"></i></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <a th:href="@{/transfer/department/history}" class="btn btn-primary btn-user btn-block">Lịch sử điều chuyển</a>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+
+
+</div>
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+</html>

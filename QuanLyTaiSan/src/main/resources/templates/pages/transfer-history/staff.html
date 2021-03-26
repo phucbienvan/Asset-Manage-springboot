@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout.html}"
+>
+<div id="wrapper">
+    <div class="container-fluid" layout:fragment="content">
+        <h2 class="title-header">Điều chuyển tài sản</h2>
+        <form name="my-form" th:action="@{/transfer/action/{id}(id=${model.assets.id})}" method="post" th:object="${model}">
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Tên sản tài</label>
+                <div class="col-md-4">
+                    <label th:text="${model.assets.name}"></label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Người dùng cũ</label>
+                <div class="col-md-4">
+                    <select disabled="disabled" class="form-control" name="oldDepartment">
+                        <option th:each="li : ${model.departmentsListOld}"
+                                th:value="${li.id}"
+                                th:selected="(${li.id} == ${model.assets.department_id})"
+                                th:text="${li.departmentName}"/>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Người dùng mới</label>
+                <div class="col-md-4">
+                    <select class="form-control" name="newDepartment">
+                        <option th:each="li : ${model.departmentsListNew}"
+                                th:value="${li.id}"
+                                th:text="${li.departmentName}"/>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Lý do</label>
+                <div class="col-md-4">
+                    <input  required autofocus="autofocus" class="form-control form-control-user" min="1" maxlength="255" name="reason">
+                </div>
+            </div>
+            <div class="col-md-6 offset-md-4">
+                <button type="submit" class="btn btn-primary">
+                    Điều chuyển
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout.html}"
+>
+<div id="wrapper">
+    <div class="container-fluid" layout:fragment="content">
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    ...
+                </div>
+            </div>
+        </div>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Danh sách tài sản mới</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="search" class="form-control" placeholder="Tìm kiếm"
+                                   id="txtSearch" name="keyWord"
+                                   aria-controls="dataTable">
+                        </div>
+                        <div class="col-md-4 row">
+                            <label class="col-md-4 col-form-label text-md-right">Từ ngày</label>
+                            <div class="col-md-8">
+                                <input class="form-control form-control-user" name="fromDate" type="date">
+                            </div>
+                        </div>
+                        <div class="col-md-4 row">
+                            <label class="col-md-4 col-form-label text-md-right">Đến ngày</label>
+                            <div class="col-md-8">
+                                <input class="form-control form-control-user" name="toDate" type="date">
+                            </div>
+                        </div>
+                        <button type="submit" >
+                            <img width="22px" th:src="@{'/images/unnamed.png'}">
+                        </button>
+                    </div>
+<!--                    <div class="row">-->
+<!--                        <div class="col-sm-12 col-md-12 row">-->
+<!--                            <div id="dataTable_filter" class="dataTables_filter col-sm-12">-->
+<!--                                <form th:action="@{/assets}" method="get">-->
+<!--                                    <div class="row">-->
+<!--                                        <div class="col-md-3">-->
+<!--                                            <input type="search" class="form-control" placeholder="Tìm kiếm"-->
+<!--                                                   id="txtSearch" name="keyWord"-->
+<!--                                                   aria-controls="dataTable">-->
+<!--                                        </div>-->
+<!--                                        <div class="col-md-2">-->
+<!--                                            <select class="form-control" name="status" >-->
+<!--                                                <option value="-1">-&#45;&#45;Trạng thái-&#45;&#45;</option>-->
+<!--                                                <option value="1">Đang sử dụng</option>-->
+<!--                                                <option value="2">Chưa sử dụng</option>-->
+<!--                                                <option value="3">Đã thu hồi</option>-->
+<!--                                                <option value="4">Đang sửa chưa</option>-->
+<!--                                            </select>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-md-2">-->
+<!--                                            <select class="form-control" name="categoryAssets">-->
+<!--                                                <option value="-1">-&#45;&#45;Loại tài sản-&#45;&#45;</option>-->
+<!--                                                <option th:each="li : ${model.categoryAssetsList}"-->
+<!--                                                        th:value="${li.id}"-->
+<!--                                                        th:text="${li.name}"/>-->
+<!--                                            </select>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-md-2">-->
+<!--                                            <select class="form-control" name="groupAssets">-->
+<!--                                                <option value="-1">-&#45;&#45;Nhóm tài sản-&#45;&#45;</option>-->
+<!--                                                <option th:each="li : ${model.groupAssetsList}"-->
+<!--                                                        th:value="${li.id}"-->
+<!--                                                        th:text="${li.groupName}"/>-->
+<!--                                            </select>-->
+<!--                                        </div>-->
+<!--                                        <button type="submit" class="btn-primary">Tìm kiếm</button>-->
+<!--                                    </div>-->
+
+<!--                                </form>-->
+<!--                            </div>-->
+<!--                            <div class="col-sm-2">-->
+<!--                                <a href="/assets/create" class="btn btn-primary btn-user btn-block">Thêm-->
+<!--                                    mới</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <table class="table table-bordered" id="" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên tài sản</th>
+                            <th>Tình trạng</th>
+                            <th>Trạng thái</th>
+                            <th>Giá</th>
+                            <th>Loại tài sản</th>
+                            <th>Nhóm tài sản</th>
+                            <th>Nhà sản xuất</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="empl,iterStat : ${model}">
+                            <th scope="row" th:text="${iterStat.count}"></th>
+                            <td>
+                                <a th:href="@{/assets/detail/{id}(id=${empl.id})}" th:text="${empl.name}"></a>
+                            </td>
+                            <td th:text="${empl.conditionAsset}"></td>
+                            <td>
+                                <div th:switch="${empl.status}">
+                                    <p th:case="1" class="text-primary">Đang sử dụng</p>
+                                    <p th:case="2" class="text-success">Chưa sử dụng</p>
+                                    <p th:case="3" class="text-danger">Đã thu hồi</p>
+                                    <p th:case="5" class="text-danger">Đang sửa chữa</p>
+                                </div>
+                            </td>
+                            <td th:text="${empl.price}"></td>
+                            <td th:text="${empl.categoryAssets.name}"></td>
+                            <td th:text="${empl.groupAssets.groupName}"></td>
+                            <td th:text="${empl.suppliers.name}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <iframe id="txtArea1" style="display:none"></iframe>
+            </div>
+        </div>
+
+<!--        <button id="btnExport" th:onclick="fnExcelReport();"> EXPORT </button>-->
+        <div class="row col-md-12">
+            <a class="btn btn-primary" th:href="@{/report/export-file-new}">Xuất exel</a>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+
+
+</div>
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+</html>

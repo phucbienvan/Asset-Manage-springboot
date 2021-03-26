@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout.html}"
+>
+<div id="wrapper">
+    <div class="container-fluid" layout:fragment="content">
+        <h2 class="title-header">Chi tiết tài sản</h2>
+        <div class="form-group row">
+            <label class="col-md-6  text-md-right">Mã tài sản :</label>
+            <div class="col-md-4">
+                <label
+                        th:text="*{model.codeAsset}"
+                ></label>
+            </div>
+        </div>
+            <div class="form-group row">
+                <label class="col-md-6  text-md-right">Tên tài sản :</label>
+                <div class="col-md-4">
+                    <label 
+                           th:text="*{model.name}"
+                    ></label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-6  text-md-right">Chi tiết :</label>
+                <div class="col-md-4">
+                    <label 
+                           th:text="*{model.description}"
+                    ></label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-6  text-md-right">Số lượng :</label>
+                <div class="col-md-4">
+                    <label 
+                           th:text="*{model.amount}"
+                    ></label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-6  text-md-right">Tình trạng :</label>
+                <div class="col-md-4">
+                    <label 
+                           th:text="*{model.conditionAsset}"
+                    ></label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-6  text-md-right">Trạng thái :</label>
+                <div class="col-md-4">
+                    <label >
+                        <div th:switch="*{model.status}">
+                            <p th:case="1" class="text-primary">Đang sử dụng</p>
+                            <p th:case="2" class="text-success">Chưa sử dụng</p>
+                            <p th:case="3" class="text-danger">Đã thu hồi</p>
+                            <p th:case="5" class="text-danger">Đang sửa chữa</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-6  text-md-right">Giá :</label>
+                <div class="col-md-4">
+                    <label >
+                        <span th:text="*{#numbers.formatDecimal(model.price, 0, 'DEFAULT', 0, 'DEFAULT')}" ></span>
+                        <span th:text="(*{model.cateMoney == 1} ? 'VNĐ':  'USD')" ></span>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-6  text-md-right">Vị trí :</label>
+                <div class="col-md-4">
+                    <label 
+                           th:text="*{model.position}"
+                    ></label>
+                </div>
+            </div>
+            <div th:if="*{model.status == 1}" class="form-group row">
+                <label class="col-md-6  text-md-right">Phòng ban :</label>
+                <div class="col-md-4">
+                    <label 
+                           th:text="*{model.departments.departmentName } "
+                    ></label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-6  text-md-right">Loại tài sản :</label>
+                <div class="col-md-4">
+                    <label 
+                           th:text="*{model.categoryAssets.name}"
+                    ></label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-6  text-md-right">Nhóm tài sản :</label>
+                <div class="col-md-4">
+                        <label 
+                               th:text="*{model.groupAssets.groupName}"
+                        ></label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-6  text-md-right">Nhà cung cấp :</label>
+                <div class="col-md-4">
+                    <label
+                           th:text="*{model.suppliers.name}"
+                    ></label>
+                </div>
+            </div>
+
+            <div class="col-md-6 offset-md-5">
+                <a th:href="@{/assets}"  class="btn btn-primary">
+                    Trở về
+                </a>
+            </div>
+    </div>
+</div>
+
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+</html>

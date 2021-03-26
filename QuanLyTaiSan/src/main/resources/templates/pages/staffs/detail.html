@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout.html}"
+>
+<div id="wrapper">
+    <div class="container-fluid" layout:fragment="content">
+        <h2 class="title-header">Chi tiết nhân viên</h2>
+        <div class="form-group row">
+            <label class="col-md-6  text-md-right">Ảnh đại diện :</label>
+            <div class="col-md-4">
+                <img th:src="@{*{model.pathImage}}" height="200px" width="200px">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-6  text-md-right">Tên nhân viên :</label>
+            <div class="col-md-4">
+                <label
+                        th:text="*{model.name}"
+                ></label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-6  text-md-right">Địa chỉ :</label>
+            <div class="col-md-4">
+                <label
+                        th:text="*{model.address}"
+                ></label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-6  text-md-right">Ngày sinh :</label>
+            <div class="col-md-4">
+                <label th:text="${#calendars.format(model.dateOfBirth,'dd MMMM yyyy')}"
+                ></label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-6  text-md-right">Số điện thoại :</label>
+            <div class="col-md-4">
+                <label
+                        th:text="*{model.phoneNumber}"
+                ></label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-6  text-md-right">Phòng ban :</label>
+            <div class="col-md-4">
+                <label
+                        th:text="*{model.departments.departmentName } "
+                ></label>
+            </div>
+        </div>
+        <div class="col-md-6 offset-md-5">
+            <a th:href="@{/staffs}"  class="btn btn-primary">
+                Trở về
+            </a>
+        </div>
+    </div>
+</div>
+
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout.html}"
+>
+<div id="wrapper">
+    <div class="container-fluid" layout:fragment="content">
+        <h2 class="title-header">Thu hồi tài sản</h2>
+        <form th:action="@{/assets/revoke/{id}(id=${model.assets.id})}" method="post" th:object="${model}">
+            <div class="form-group row">
+                <label  class="col-md-4 col-form-label text-md-right" >Tên tài sản</label>
+                <div class="col-md-4">
+                    <label type="text" th:text="${model.assets.name}" class="form-control"></label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label  class="col-md-4 col-form-label text-md-right" >Lý do thu hồi</label>
+                <div class="col-md-4">
+                    <textarea class=" form-control"  name="reason" minlength="6"  required autofocus="autofocus" rows="3">
+                    </textarea>
+                </div>
+            </div>
+
+            <div class="col-md-6 offset-md-4">
+                <button type="submit" class="btn btn-primary">
+                    Thu hồi tài sản
+                </button>
+            </div>
+        </form>
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+</html>

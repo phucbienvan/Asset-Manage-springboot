@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout.html}"
+>
+<div id="wrapper">
+    <div class="container-fluid" layout:fragment="content">
+        <h2 class="title-header">QRCode </h2>
+        <div class="form-group row">
+            <label class="col-md-4  text-md-right" th:text="*{'Mã QRCode của ' + model.name}">Mã QRCode của</label>
+            <div class="col-md-4">
+                <img th:src="@{'/images/' + *{model.id} + '.png'}" height="200px" width="200px">
+
+            </div>
+        </div>
+
+        <div class="col-md-6 offset-md-4">
+            <a th:href="@{/assets}"  class="btn btn-primary">
+                Trở về
+            </a>
+        </div>
+    </div>
+</div>
+
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+</html>

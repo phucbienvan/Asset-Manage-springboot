@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout.html}"
+>
+<div id="wrapper">
+    <div class="container-fluid" layout:fragment="content">
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    ...
+                </div>
+            </div>
+        </div>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Điều chuyển tài sản</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 row">
+                            <div id="dataTable_filter" class="dataTables_filter col-sm-12">
+                                <form th:action="@{/assets}" method="get">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <input type="search" class="form-control" placeholder="Tìm kiếm"
+                                                   id="txtSearch" name="keyWord"
+                                                   aria-controls="dataTable">
+                                        </div>
+                                        <button type="submit" class="btn-primary">Tìm kiếm</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên tài sản</th>
+                            <th>Chi tiết</th>
+                            <th>Người sử dụng trước</th>
+                            <th>Người sử dụng tiếp</th>
+                            <th>Thời gian từ</th>
+                            <th>Đến</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="empl,iterStat : ${model}">
+                            <th scope="row" th:text="${iterStat.count}"></th>
+                            <td th:text="${empl.assets.name}"></td>
+                            <td th:text="${empl.reason}"></td>
+                            <td th:text="(${empl.status == 1} ? ${empl.departments.departmentName} :  ${empl.staffs.name})"></td>
+                            <td th:text="(${empl.status == 1} ? ${empl.department.departmentName} :  ${empl.staff.name})"></td>
+                            <td th:text="${empl.startDate}"></td>
+                            <td th:text="${empl.endDate}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+
+</div>
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+</html>

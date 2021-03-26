@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout.html}"
+>
+<div id="wrapper">
+    <div class="container-fluid" layout:fragment="content">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="row">
+                    <div class="col-md-11">
+                        <h6 class="m-0 font-weight-bold text-primary">Danh sách nhóm tài sản</h6>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="col-md-1">
+                            <a href="/group-assets/create" title="Thêm mới">
+                                <img width="25px" th:src="@{'/images/add.png'}">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 row">
+                            <div id="dataTable_filter" class="dataTables_filter col-sm-6">
+<!--                                <form th:action="@{/group-assets}" method="get">-->
+<!--                                    <input type="search" class="form-control form-control-sm"-->
+<!--                                           placeholder="Tìm kiếm" id="txtSearch" name="keyWord"-->
+<!--                                           aria-controls="dataTable">-->
+<!--                                </form>-->
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th class="column-stt" >STT</th>
+                            <th>Tên nhóm tài sản</th>
+                            <th class="column-stt">Sửa</th>
+                            <th class="column-stt"> Xoá</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="empl,iterStat : ${cate}">
+                            <th scope="row" th:text="${iterStat.count}"></th>
+                            <td th:text="${empl.groupName}"></td>
+                            <td class=""><a th:href="@{/group-assets/edit/{id}(id=${empl.id})}"
+                                   class="mr-sm-2 text-primary">
+                                Sửa<i class="fa fa-pencil"></i></a>
+                            </td>
+                            <td><a th:href="@{/group-assets/delete/{id}(id=${empl.id})}" class="text-danger">
+                                <i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+
+</html>

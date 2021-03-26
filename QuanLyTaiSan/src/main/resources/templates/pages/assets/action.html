@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout.html}"
+>
+<div id="wrapper">
+    <div class="container-fluid" layout:fragment="content">
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    ...
+                </div>
+            </div>
+        </div>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="row">
+                    <div class="col-md-11">
+                        <h6 class="m-0 font-weight-bold text-primary">Danh sách tài sản</h6>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="col-md-1">
+                            <a href="/assets/create">
+                                <img width="25px" th:src="@{'/images/add.png'}">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+
+                    <form th:action="@{/assets/sell-view}" method="post" th:object="${model}">
+                        <table style="text-align:center;" class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th style="width:20px;">STT</th>
+                                <th>Tên tài sản</th>
+                                <th>Loại tài sản</th>
+                                <th>Giá</th>
+                                <th style="width:100px;"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="empl,iterStat : ${model}">
+                                <th scope="row" th:text="${iterStat.count}"></th>
+                                <td>
+                                    <a th:href="@{/assets/detail/{id}(id=${empl.id})}" th:text="${empl.name}"></a>
+                                </td>
+                                <td th:text="${empl.categoryAssets.name}"></td>
+                                <td  >
+                                    <span th:text="${#numbers.formatDecimal(empl.price, 0, 'DEFAULT', 0, 'DEFAULT')}" ></span>
+                                    <span th:text="(${empl.cateMoney == 1} ? 'VNĐ':  'USD')" ></span>
+                                </td>
+                                <td>
+                                    <table class="table-bordered">
+                                        <tr>
+                                            <td><a th:href="@{/assets/sell/{id}(id=${empl.id})}"
+                                                   class="mr-sm-2 text-primary"> <i title=" Thanh lý" class="fa fa-truck" aria-hidden="true"></i></a>
+<!--                                                <input type="checkbox" name="checkBox"-->
+<!--                                                       th:value="${empl.id}" />-->
+                                            </td>
+                                            <td><a  th:href="@{/assets/repair/{id}(id=${empl.id})}" class="text-success"><i title="Sửa chữa" class="fa fa-cog"></i></a></td>
+                                            <td> <a th:href="@{/assets/revoke/{id}(id=${empl.id})}" class="text-danger"><i title="Thu hồi" class="fa fa-power-off"></i></a></td>
+                                        </tr>
+                                    </table>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 row">
+                <div class="col-md-3">
+                    <a class="btn btn-primary" th:href="@{/assets/sell/history}">Lịch sử thanh lý</a>
+                </div>
+                <div class="col-md-3">
+                    <a class="btn btn-primary" th:href="@{/assets/revoke/history}">Lịch sử thu hồi</a>
+                </div>
+                <div class="col-md-3">
+                    <a class="btn btn-primary" th:href="@{/assets/repair/history}">Lịch sử sửa chữa</a>
+                </div>
+                <div class="col-md-3">
+                    <a class="btn btn-primary" th:href="@{/assets/used-history}">Lịch sử sử dụng</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+</html>
